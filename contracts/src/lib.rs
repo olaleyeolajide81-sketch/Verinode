@@ -2,6 +2,8 @@
 #[cfg(test)]
 mod test;
 
+pub mod proof_verifier;
+
 use soroban_sdk::{contract, contractimpl, contracttype, Address, Bytes, Env, String, Vec};
 
 #[contracttype]
