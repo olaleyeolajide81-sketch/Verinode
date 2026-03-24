@@ -12,6 +12,9 @@ import Marketplace from './pages/Marketplace';
 import Search from './pages/Search';
 import RouteChangeTracker from './analytics/RouteChangeTracker';
 import { performanceMetrics, preloadCriticalResources } from './utils/performance';
+import { ThemeProvider } from './themes/ThemeManager';
+import ThemeSelector from './components/Theme/ThemeSelector';
+import ThemeTest from './components/Theme/ThemeTest';
 import './App.css';
 
 const queryClient = new QueryClient();
@@ -41,30 +44,36 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Router>
-        <RouteChangeTracker />
-        <div className="min-h-screen bg-gray-50">
-          <a href="#main-content" className="skip-link">
-            Skip to main content
-          </a>
-          <Navbar />
-          <main
-            id="main-content"
-            className="container mx-auto px-4 py-8"
-            aria-label="Main content"
-          >
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/issue" element={<IssueProof />} />
-              <Route path="/verify" element={<VerifyProof />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/marketplace" element={<Marketplace />} />
-              <Route path="/search" element={<Search />} />
-            </Routes>
-          </main>
-          <Toaster position="top-right" />
-        </div>
-      </Router>
+      <ThemeProvider>
+        <Router>
+          <RouteChangeTracker />
+          <div className="min-h-screen" style={{ backgroundColor: 'var(--color-background)', color: 'var(--color-text)' }}>
+            <a href="#main-content" className="skip-link">
+              Skip to main content
+            </a>
+            <Navbar />
+            <div className="fixed top-4 right-4 z-40">
+              <ThemeSelector />
+            </div>
+            <main
+              id="main-content"
+              className="container mx-auto px-4 py-8"
+              aria-label="Main content"
+            >
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/issue" element={<IssueProof />} />
+                <Route path="/verify" element={<VerifyProof />} />
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/marketplace" element={<Marketplace />} />
+                <Route path="/search" element={<Search />} />
+                <Route path="/theme-test" element={<ThemeTest />} />
+              </Routes>
+            </main>
+            <Toaster position="top-right" />
+          </div>
+        </Router>
+      </ThemeProvider>
     </QueryClientProvider>
   );
 }
