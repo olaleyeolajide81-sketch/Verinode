@@ -7,6 +7,7 @@ mod chainVerifier;
 mod atomicSwap;
 mod messagePassing;
 mod grantTreasury;
+pub mod optimization;
 
 use soroban_sdk::{contract, contractimpl, contracttype, Address, Bytes, Env, String, Vec};
 
